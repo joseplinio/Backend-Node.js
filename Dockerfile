@@ -3,5 +3,5 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm i
 COPY  . .
-CMD [ "node", "src/main.js" ]
+CMD [ "node", "src/main.ts" ]
 EXPOSE 3000
