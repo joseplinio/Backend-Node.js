@@ -2,9 +2,9 @@ services:
   db:
     image: bitnami/postgresql:latest
     environment:
-      - POSTGRESQL_USERNAME=root
-      - POSTGRESQL_PASSWORD=docker
-      - POSTGRESQL_DATABASE=olamundo
+      - POSTGRESQL_USERNAME=${USER_POSTGRES}
+      - POSTGRESQL_PASSWORD=${PASSWORD_POSTGRES}
+      - POSTGRESQL_DATABASE=${NAME_POSTGRES}
     ports:
       - 5432:5432
     volumes:

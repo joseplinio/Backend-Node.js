@@ -1,0 +1,9 @@
+{
+  "compilerOptions": { // fazendo as opçoes
+    "target": "ES6", // Usar Ec6 (resente)
+    "module": "CommonJS", // Sistema de modulos
+    "outDir": "./dist", // onde os arquivos compilados para .js vão
+    "strict": true, // Para erros de tipo
+    "esModuleInterop": false // Para usar Import ou require
+  }
+}
