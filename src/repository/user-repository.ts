@@ -1,23 +1,34 @@
-import { db } from "../db";
-import { usersTable } from "../db/schema";
-import type { IUserRepository } from "../interface/user-repository-interface";
-import type { User } from "../models/user";
-import { HashPassWord } from "../utils/security/hash-pass-word";
+import { plainToInstance } from "class-transformer"
+import { validate } from "class-validator"
+import { db } from "../db"
+import { usersTable } from "../db/schema"
+import { CreateUserRequestDTO } from "../dto/create-user-request-dto"
+import type { IUserRepository } from "../interface/user-repository-interface"
+import { User } from "../models/user"
+import { HashPassWord } from "../utils/security/hash-pass-word"
 
 const hashPassWord = new HashPassWord()
 
 export class UserRepository implements IUserRepository {
-  async save(user: User): Promise<User> {
-    const saved = await db.insert(usersTable).values({
-      id: user.id,
-      name: user.name,
-      age: user.age,
-      hashPassWord: await hashPassWord.hash(user.hashPassWord)
-    }).returning()
+	async save(user: User): Promise<User> {
+		const uservalided = plainToInstance(CreateUserRequestDTO, user) as User
+		const errors = await validate(uservalided)
 
+		if (errors.length > 0) {
+			console.log(errors)
+			throw new Error()
+		}
 
-    // Mecher no modos de tipo do retorno da table
-    return saved[0]
-  }
-  
+		const saved = await db
+			.insert(usersTable)
+			.values({
+				id: uservalided.id,
+				name: uservalided.name,
+				age: uservalided.age,
+				hashPassWord: await hashPassWord.hash(uservalided.hashPassWord),
+			})
+			.returning()
+
+		return saved[0]
+	}
 }
