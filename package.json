@@ -7,7 +7,9 @@
     "esbuild": "^0.25.2"
   },
   "scripts": {
-    "start": "node main.js"
+    "start": "node dist/main.js",
+    "build": "tsup"
+
   },
   "keywords": [],
   "author": "",
@@ -16,19 +18,25 @@
   "dependencies": {
     "argon2": "^0.41.1",
     "bcryptjs": "^3.0.2",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
     "dotenv": "^16.4.7",
     "drizzle-kit": "^0.30.6",
     "drizzle-orm": "^0.41.0",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.14.1",
-    "postgres": "^3.4.5"
+    "postgres": "^3.4.5",
+    "tsup": "^8.4.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.9.5-nightly.81fdedb",
     "@types/bcryptjs": "^2.4.6",
     "@types/express": "^5.0.1",
     "@types/jsonwebtoken": "^9.0.9",
+    "globals": "^16.0.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.31.0"
   }
 }
