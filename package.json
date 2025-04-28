@@ -7,7 +7,9 @@
     "esbuild": "^0.25.2"
   },
   "scripts": {
-    "start": "node main.js"
+    "start": "node dist/main.js",
+    "build": "tsup"
+
   },
   "keywords": [],
   "author": "",
@@ -24,7 +26,8 @@
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.14.1",
-    "postgres": "^3.4.5"
+    "postgres": "^3.4.5",
+    "tsup": "^8.4.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.5-nightly.81fdedb",
