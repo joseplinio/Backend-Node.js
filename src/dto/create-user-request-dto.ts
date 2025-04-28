@@ -19,7 +19,7 @@ export class CreateUserRequestDTO {
 		minLength: 12,
 		minLowercase: 4,
 		minNumbers: 2,
-		minSymbols: 2,
+		minSymbols: 3,
 		minUppercase: 3,
 	})
 	hashPassWord: string
