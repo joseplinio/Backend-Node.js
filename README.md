@@ -50,8 +50,13 @@ git clone https://github.com/joseplinio/Backend-Node.js.git
 # Acessar a pasta do projeto
 cd Backend-Node.js
 
+# Instalar as dependências
+npm i 
+
 # Subir os serviços
 docker-compose up --build
+
+# Subir as tabele
 
 ```
 ### Crie um arquivo .env
@@ -75,14 +80,11 @@ PORT = wwww
 
 ## 📦 Scripts principais
 ```bash
-# Instalar dependências
-npm install
+# Subir as tabelas
+npx drizzle-kit push
 
-# Rodar o projeto (modo local)
-npm run dev
-
-# Gerar build
-npm run build
+# Ver as tabeles
+npx drizzle-kit studio
 ```
 ## Final 
 - Bom é isso espero que goste do meu projeto ;] (Thanks @Sofia, @Mare)
