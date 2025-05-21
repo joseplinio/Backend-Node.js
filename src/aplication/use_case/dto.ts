@@ -1,8 +1,9 @@
+import { IsEmail, IsString, Length, IsStrongPassword, IsNumber} from "class-validator"
 import { Transform } from "class-transformer"
-import { IsNumber, IsString, IsStrongPassword, Length } from "class-validator"
+import type { IDto } from "../interface/dto/IDto"
 
-export class CreateUserRequestDTO {
-	@IsString()
+export class CreaterUserDtoRequest implements IDto {
+  @IsString()
 	@Length(3, 100)
 	@Transform(({ value }: { value: string }) =>
 		value
@@ -10,10 +11,13 @@ export class CreateUserRequestDTO {
 			.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
 			.join(" "),
 	)
-	name: string
+	name!: string
 
 	@IsNumber()
-	age: number
+	age!: number
+
+  @IsEmail()
+  email!: string
 
 	@IsStrongPassword({
 		minLength: 12,
@@ -22,11 +26,6 @@ export class CreateUserRequestDTO {
 		minSymbols: 3,
 		minUppercase: 3,
 	})
-	hashPassWord: string
+	hashpassword!: string
 
-	constructor(name: string, age: number, hashPassWord: string) {
-		this.name = name
-		this.age = age
-		this.hashPassWord = hashPassWord
-	}
 }
