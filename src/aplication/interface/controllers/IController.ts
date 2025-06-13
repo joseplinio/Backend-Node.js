@@ -2,5 +2,5 @@
 // E pode retorna outro (V)
 
 export interface IController<T, V>{
-  handler(body: T): Promise<V>
+  handler(request: T, httpContext: V): Promise<void>
 }
