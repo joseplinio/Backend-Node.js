@@ -10,7 +10,6 @@
 
 ```py
 .
-├── dist/ # Código compilado (build)
 ├── src/ # Código-fonte principal (entrypoint: src/main.ts)
 ├── docker-compose.yml # Orquestração de containers
 ├── Dockerfile # Imagem da aplicação Node.js
@@ -19,7 +18,6 @@
 ├── tsup.config.ts # Configuração do empacotador TSUP
 ├── drizzle.config.ts # Configuração do ORM Drizzle
 └── biome.json # Configuração de lint e formatação
-
 ```
 ---
 
@@ -51,17 +49,9 @@ git clone https://github.com/joseplinio/Backend-Node.js.git
 cd Backend-Node.js
 
 # Instalar as dependências
-npm i 
+npm i
 
-# Subir os serviços
-docker-compose up --build
-
-# Subir as tabele
-
-```
-### Crie um arquivo .env
-```bash
-# No repositorio
+# No repositorio (Backend)
 cp .env.txt .env
 
 # Exemplo (.env):
@@ -77,14 +67,23 @@ POSTGRESQL_DATABASE = zzzz
 # Aplication
 PORT = wwww
 ```
+### Subindo os serviços
+```
+docker compose build
+
+docker compose up -d
+
+# Subir as tabelas
+npx drizzle-kit push
+```
 
 ## 📦 Scripts principais
 ```bash
-# Subir as tabelas
-npx drizzle-kit push
+# Up api in localhost:
+npx tsx --watch src/adapters/api/server/express/server.ts
 
 # Ver as tabeles
 npx drizzle-kit studio
 ```
 ## Final 
-- Bom é isso espero que goste do meu projeto ;] (Thanks @Sofia, @Mare)
+- Bom é isso espero que goste do meu projeto ;] **(Thanks @Sofia, @Mare, @!Zuk)**
