@@ -10,7 +10,7 @@ import type { IController } from "../../../../../aplication/interface/controller
 import type { IUseCase } from "../../../../../aplication/use_case/case"
 import type { UserEntity } from "../../../../../domains/user-entity"
 @injectable()
-export class UserAddController implements IController<any, AdapterExpress> {
+export class UserAddController implements IController<AdapterExpress> {
 	constructor(
 		@inject("UserAddCase")
 		private userService: IUseCase<CreateUserModel, UserEntity>,
@@ -46,7 +46,7 @@ export class UserAddController implements IController<any, AdapterExpress> {
 			})
 		} catch (err) {
 			httpContext.send<any>(
-				StatusCodes.BAD_REQUEST,
+				StatusCodes.INTERNAL_SERVER_ERROR,
 				"Erro ao criar o user",
 				err,
 			)
