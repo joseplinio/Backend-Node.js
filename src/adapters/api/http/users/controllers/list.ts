@@ -14,7 +14,9 @@ export class UserListerController implements IController<any, AdapterExpress> {
 
 	async handler(request: any, httpContext: AdapterExpress): Promise<void> {
 		try {
-			const usersResult = await this.UserListCase.handler(request) // Parte a ser melhorada
+			const usersResult = await this.UserListCase.handler(
+				(await httpContext.getRequest()).params,
+			) // Parte a ser melhorada
 
 			httpContext.send<any>(
 				StatusCodes.OK,
