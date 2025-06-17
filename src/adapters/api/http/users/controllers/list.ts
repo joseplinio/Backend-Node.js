@@ -6,13 +6,13 @@ import { inject, injectable } from "tsyringe"
 import type { AdapterExpress } from "../../../server/express/expressAdapter"
 
 @injectable()
-export class UserListerController implements IController<any, AdapterExpress> {
+export class UserListerController implements IController<AdapterExpress> {
 	constructor(
 		@inject("UserListCase")
 		private UserListCase: IUseCase<any, UserEntity | null>,
 	) {}
 
-	async handler(request: any, httpContext: AdapterExpress): Promise<void> {
+	async handler(httpContext: AdapterExpress): Promise<void> {
 		try {
 			const usersResult = await this.UserListCase.handler(
 				(await httpContext.getRequest()).params,
@@ -25,7 +25,7 @@ export class UserListerController implements IController<any, AdapterExpress> {
 			)
 		} catch (err) {
 			httpContext.send<any>(
-				StatusCodes.BAD_REQUEST,
+				StatusCodes.INTERNAL_SERVER_ERROR,
 				"Erro ao listar os usoarios.",
 				err,
 			)
