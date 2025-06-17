@@ -4,7 +4,7 @@ import { IUserRepository } from "../../interface/repository/IUserRepository"
 import type { IUseCase } from "../case"
 
 @injectable()
-export class DeleteUserCase implements IUseCase<string, UserEntity> {
+export class UserDeleteCase implements IUseCase<string, UserEntity> {
 	constructor(
 		@inject("UserRepository") private userRepository: IUserRepository,
 	) {}
