@@ -4,12 +4,12 @@ import { inject, injectable } from "tsyringe"
 import type { IUseCase } from "../case"
 
 @injectable()
-export class UserListCase implements IUseCase<any, UserEntity | null> {
+export class UserListCase implements IUseCase<any, UserEntity[] | null> {
 	constructor(
 		@inject("UserRepository") private userRepository: IUserRepository,
 	) {}
 
-	handler(body: any): Promise<UserEntity | null> {
+	handler(body: any): Promise<UserEntity[] | null> {
 		return this.userRepository.listAll()
 	}
 }
