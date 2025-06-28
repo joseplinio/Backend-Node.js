@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm"
+import { and, eq } from "drizzle-orm"
 import { IUserRepository } from "../../../aplication/interface/repository/IUserRepository"
 import { UserEntity } from "../../../domains/user-entity"
 import { db } from "../drizzle/db/db"
@@ -29,7 +29,27 @@ export class UserRepository implements IUserRepository {
 			return null
 		}
 	}
+	async findAny({ id, name, email }: any): Promise<UserEntity[] | null> {
+		try {
+			// Peguei com ajuda da IA mals ];
+			const filters = [
+				id ? eq(usersTable.id, id) : undefined,
+				name ? eq(usersTable.name, name) : undefined,
+				email ? eq(usersTable.email, email) : undefined,
+			]
 
+			const where = filters.length > 0 ? and(...filters) : undefined
+
+			const resultFindAny = db.query.usersTable.findMany({
+				where: where,
+			})
+			console.log((await resultFindAny).keys)
+			return resultFindAny ?? null
+		} catch (err) {
+			console.log(`Erro ao fazer a query no banco de dados: ${err}`)
+			return null
+		}
+	}
 	async delete(id: string): Promise<void> {
 		await db.delete(usersTable).where(eq(usersTable.id, id))
 	}
