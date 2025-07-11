@@ -43,10 +43,21 @@ export class UserRepository implements IUserRepository {
 			const resultFindAny = db.query.usersTable.findMany({
 				where: where,
 			})
-			console.log((await resultFindAny).keys)
 			return resultFindAny ?? null
 		} catch (err) {
 			console.log(`Erro ao fazer a query no banco de dados: ${err}`)
+			return null
+		}
+	}
+	async findByEmail(email: string): Promise<UserEntity | null> {
+		try {
+			const emailResult = await db.query.usersTable.findFirst({
+				where: eq(usersTable.email, email),
+			})
+			return emailResult ?? null
+			
+		} catch (err) {
+			console.log(err)
 			return null
 		}
 	}
