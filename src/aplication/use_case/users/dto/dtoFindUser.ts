@@ -1,13 +1,15 @@
 import { Transform } from "class-transformer"
-import { IsEmail, IsOptional, IsString, IsUUID, Length } from "class-validator"
+import { IsEmail, IsNotEmpty, IsOptional, IsString, IsUUID, Length } from "class-validator"
 import type { IDtoFindUser } from "src/aplication/interface/dto/IFindUserDto"
 
 export class DtoFindUser implements IDtoFindUser {
+	@IsNotEmpty()
 	@IsOptional()
 	@IsString()
 	@IsUUID(4)
 	id?: string
 
+	@IsNotEmpty()
 	@IsOptional()
 	@Transform(({ value }: { value: string }) =>
 		value
@@ -20,6 +22,7 @@ export class DtoFindUser implements IDtoFindUser {
 	@Length(3, 100)
 	name?: string
 
+	@IsNotEmpty()
 	@IsOptional()
 	@Transform(({ value }) => value.toLowerCase().trim())
 	@IsString()

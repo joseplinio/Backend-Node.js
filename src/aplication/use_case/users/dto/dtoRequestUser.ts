@@ -1,6 +1,7 @@
 import { Transform } from "class-transformer"
 import {
 	IsEmail,
+	IsNotEmpty,
 	IsNumber,
 	IsString,
 	IsStrongPassword,
@@ -11,6 +12,7 @@ import {
 import type { IRequestUserDto } from "../../../interface/dto/IRequestUserDto"
 
 export class CreaterUserDtoRequest implements IRequestUserDto {
+	@IsNotEmpty()
 	@IsString()
 	@Length(3, 100)
 	@Transform(({ value }: { value: string }) =>
@@ -22,15 +24,18 @@ export class CreaterUserDtoRequest implements IRequestUserDto {
 	)
 	name!: string
 
+	@IsNotEmpty()
 	@IsNumber()
 	@Min(15)
 	@Max(120)
 	age!: number
 
+	@IsNotEmpty()
 	@Transform(({ value }) => value?.toLowerCase().trim())
 	@IsEmail()
 	email!: string
 
+	@IsNotEmpty()
 	@IsStrongPassword(
 		{
 			minLength: 12,
