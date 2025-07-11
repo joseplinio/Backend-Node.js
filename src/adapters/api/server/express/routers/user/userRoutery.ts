@@ -5,6 +5,7 @@ import { UserListController } from "src/adapters/api/http/users/controllers/list
 import { container } from "tsyringe"
 import { UserAddController } from "../../../../http/users/controllers/add"
 import { AdapterExpress } from "../../expressAdapter"
+import { UserLoginController } from "src/adapters/api/http/users/controllers/login"
 
 export const userRouter = Router()
 
@@ -26,4 +27,11 @@ userRouter.get("/find", async (req: Request, res: Response) => {
 userRouter.delete("/:id", async (req: Request, res: Response) => {
 	const adapterEx = new AdapterExpress(req, res)
 	container.resolve(UserDeleteController).handler(adapterEx)
+})
+
+userRouter.post("/login", async (req: Request, res: Response) => {
+	console.log(req.query)
+	const adapterEx = new AdapterExpress(req, res)
+	container.resolve(UserLoginController).handler(adapterEx)
+
 })
