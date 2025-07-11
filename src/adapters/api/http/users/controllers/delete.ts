@@ -21,7 +21,7 @@ export class UserDeleteController implements IController<AdapterExpress> {
 				DtoDeleteUser,
 				params,
 			)
-			await this.userDeleteCase.handler(resultInstace)
+			await this.userDeleteCase.handler(resultInstace.id)
 
 			if (!resultInstace) {
 				httpContext.send<any>(
