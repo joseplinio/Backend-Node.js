@@ -12,12 +12,18 @@ import { UserDeleteController } from "../http/users/controllers/delete"
 import { UserFindController } from "../http/users/controllers/find"
 import { UserListController } from "../http/users/controllers/list"
 import { AdapterExpress } from "../server/express/expressAdapter"
+import { UserLoginCase } from "src/aplication/use_case/users/login"
+import { UserLoginController } from "../http/users/controllers/login"
 
 // Controllers
 container.register<UserAddController>("UserAddController", UserAddController)
 container.register<UserDeleteController>(
 	"UserDeleteController",
 	UserDeleteController,
+)
+container.register<UserLoginController>(
+	"UserLoginController",
+	UserLoginController,
 )
 container.register<UserFindController>("UserFindController", UserFindController)
 container.register<UserListController>("UserListController", UserListController)
@@ -35,6 +41,7 @@ container.register<AdapterExpress>("AdapterExpress", AdapterExpress)
 container.register<UserRepository>("UserRepository", UserRepository)
 
 // Cases
+container.register<UserLoginCase>("UserLoginCase", UserLoginCase)
 container.register<UserDeleteCase>("UserDeleteCase", UserDeleteCase)
 container.register<UserAddCase>("UserAddCase", UserAddCase)
 container.register<UserListCase>("UserListCase", UserListCase)
