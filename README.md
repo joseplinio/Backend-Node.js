@@ -57,7 +57,7 @@ cp .env.txt .env
 # Exemplo (.env):
 
 # Database (drizzle)
-DATABASE_URL = postgres://xxxx:xxxx@db:5432/xxxx
+DATABASE_URL = postgres://POSTGRESQL_USERNAME:POSTGRESQL_PASSWORD@HOST:5432/POSTGRESQL_DATABASE
 
 # Docker-compose
 POSTGRESQL_USERNAME = xxxx
