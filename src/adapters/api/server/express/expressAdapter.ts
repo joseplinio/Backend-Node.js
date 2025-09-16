@@ -1,4 +1,4 @@
-import type { Response, Request } from "express"
+import type { Request, Response } from "express"
 import { StatusCodes } from "http-status-codes"
 import type { IHttpContext } from "src/aplication/interface/http/IHttpContext"
 import type { IRequest } from "src/aplication/interface/http/IRequest"
@@ -10,14 +10,16 @@ export class AdapterExpress implements IHttpContext {
 		private request: Request,
 		private response: Response,
 	) {}
-	
+
 	async getRequest(): Promise<IRequest<any>> {
-		const {body, params, query } = this.request 
-		
+		const { body, params, query, headers, cookies } = this.request
+
 		return {
 			body: body,
 			params: params,
-			query: query
+			query: query,
+			cookies: cookies,
+			headers: headers,
 		}
 	}
 
