@@ -26,11 +26,12 @@ export class UserFindController implements IController<AdapterExpress> {
 				DtoFindUser,
 				query,
 			)
-			const resultQuery = await this.userFindCase.handler(queryInstace)
-			console.log(queryInstace)
-			console.log(resultQuery)
+			let resultQuery = await this.userFindCase.handler(queryInstace)
+			if (resultQuery?.length == 0) {
+				resultQuery = null
+			}
 
-			httpContext.send<any>(
+			httpContext.send<typeof resultQuery>(
 				StatusCodes.OK,
 				"Query feita com sucesso",
 				resultQuery,
@@ -38,7 +39,7 @@ export class UserFindController implements IController<AdapterExpress> {
 		} catch (err: any) {
 			console.log(err)
 
-			httpContext.send<any>(
+			httpContext.send<typeof err>(
 				StatusCodes.INTERNAL_SERVER_ERROR,
 				"Erro ao tentar fazer a query",
 				err,

@@ -20,14 +20,13 @@ export class UserListController implements IController<AdapterExpress> {
 		try {
 			const req = await httpContext.getRequest()
 
-			// Mecher na parte do dto
 			const listAllInstance = await this.dtoValidator.valideDto<DtoListUser>(
 				DtoListUser,
 				req,
 			)
 			const resultList = await this.userListcase.handler(listAllInstance)
-
-			httpContext.send<any>(
+			
+			httpContext.send<typeof resultList>(
 				StatusCodes.OK,
 				"Listagem feita com sucesso!",
 				resultList,
@@ -35,7 +34,7 @@ export class UserListController implements IController<AdapterExpress> {
 		} catch (err) {
 			console.log(err)
 
-			httpContext.send<any>(
+			httpContext.send<typeof err>(
 				StatusCodes.INTERNAL_SERVER_ERROR,
 				"Erro ao tentar fazer a listagem dos usuarios",
 				err,

@@ -31,11 +31,11 @@ export class UserDeleteController implements IController<AdapterExpress> {
 				)
 			}
 
-			httpContext.send<any>(StatusCodes.OK, "User deletado com sucesso!", null)
+			httpContext.send<null>(StatusCodes.OK, "User deletado com sucesso!", null)
 		} catch (err) {
 			console.log(err)
 
-			httpContext.send<any>(
+			httpContext.send<typeof err>(
 				StatusCodes.INTERNAL_SERVER_ERROR,
 				"Não foi possivel deletar o user.",
 				err,
