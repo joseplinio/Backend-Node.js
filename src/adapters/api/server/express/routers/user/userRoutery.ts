@@ -1,37 +1,11 @@
 import { type Request, type Response, Router } from "express"
-import { UserDeleteController } from "src/adapters/api/http/users/controllers/delete"
-import { UserFindController } from "src/adapters/api/http/users/controllers/find"
-import { UserListController } from "src/adapters/api/http/users/controllers/list"
+import { UserAddController } from "src/adapters/api/http/users/controllers/routers/add"
 import { container } from "tsyringe"
-import { UserAddController } from "../../../../http/users/controllers/add"
 import { AdapterExpress } from "../../expressAdapter"
-import { UserLoginController } from "src/adapters/api/http/users/controllers/login"
 
 export const userRouter = Router()
 
 userRouter.post("/", async (req: Request, res: Response) => {
 	const adapterEx = new AdapterExpress(req, res)
 	container.resolve(UserAddController).handler(adapterEx)
-})
-
-userRouter.get("/", async (req: Request, res: Response) => {
-	const adapterEx = new AdapterExpress(req, res)
-	container.resolve(UserListController).handler(adapterEx)
-})
-
-userRouter.get("/find", async (req: Request, res: Response) => {
-	const adapterEx = new AdapterExpress(req, res)
-	container.resolve(UserFindController).handler(adapterEx)
-})
-
-userRouter.delete("/:id", async (req: Request, res: Response) => {
-	const adapterEx = new AdapterExpress(req, res)
-	container.resolve(UserDeleteController).handler(adapterEx)
-})
-
-userRouter.post("/login", async (req: Request, res: Response) => {
-	console.log(req.query)
-	const adapterEx = new AdapterExpress(req, res)
-	container.resolve(UserLoginController).handler(adapterEx)
-
 })
