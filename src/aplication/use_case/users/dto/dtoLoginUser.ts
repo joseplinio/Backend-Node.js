@@ -1,6 +1,6 @@
 import { Transform } from "class-transformer"
 import { IsEmail, IsNotEmpty, IsString } from "class-validator"
-import type { IDtoLoginUser } from "src/aplication/interface/dto/ILoginUserDto"
+import type { IDtoLoginUser } from "src/aplication/interface/dto/auth/ILoginUserDto"
 
 export class DtoLoginUser implements IDtoLoginUser {
 	@IsString()

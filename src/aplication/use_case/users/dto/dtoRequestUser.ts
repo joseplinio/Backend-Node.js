@@ -9,7 +9,7 @@ import {
 	Max,
 	Min,
 } from "class-validator"
-import type { IRequestUserDto } from "../../../interface/dto/IRequestUserDto"
+import type { IRequestUserDto } from "../../../interface/dto/user/IRequestUserDto"
 
 export class CreaterUserDtoRequest implements IRequestUserDto {
 	@IsNotEmpty()
@@ -49,5 +49,5 @@ export class CreaterUserDtoRequest implements IRequestUserDto {
 				"A senha deve ter no mínimo 12 caracteres, incluindo pelo menos 4 letras minúsculas, 3 letras maiúsculas, 2 números e 3 símbolos especiais.",
 		},
 	)
-	hashpasswd!: string
+	passwd!: string
 }

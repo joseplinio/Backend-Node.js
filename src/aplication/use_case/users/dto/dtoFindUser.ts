@@ -1,6 +1,13 @@
 import { Transform } from "class-transformer"
-import { IsEmail, IsNotEmpty, IsOptional, IsString, IsUUID, Length } from "class-validator"
-import type { IDtoFindUser } from "src/aplication/interface/dto/IFindUserDto"
+import {
+	IsEmail,
+	IsNotEmpty,
+	IsOptional,
+	IsString,
+	IsUUID,
+	Length,
+} from "class-validator"
+import type { IDtoFindUser } from "src/aplication/interface/dto/admin/IFindUserDto"
 
 export class DtoFindUser implements IDtoFindUser {
 	@IsNotEmpty()

@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString, IsUUID } from "class-validator"
-import type { IDtoDeleteUser } from "src/aplication/interface/dto/IDeleteUserDto"
+import { IDtoDeleteUser } from "src/aplication/interface/dto/admin/IDeleteUserDto"
 
 export class DtoDeleteUser implements IDtoDeleteUser {
 	@IsNotEmpty()
