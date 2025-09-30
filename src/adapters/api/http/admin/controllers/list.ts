@@ -1,0 +1,45 @@
+import { StatusCodes } from "http-status-codes"
+import type { AdapterExpress } from "src/adapters/api/server/express/expressAdapter"
+import type { IController } from "src/aplication/interface/controllers/IController"
+import type { IUserValideDto } from "src/aplication/interface/dto/user/IUserValideDto"
+import type { IRequest } from "src/aplication/interface/http/IRequest"
+import type { IUseCase } from "src/aplication/interface/cases/IUseCase"
+import { DtoListUser } from "src/aplication/use_case/users/dto/dtoListUser"
+import type { UserEntity } from "src/domains/user-entity"
+import { inject, injectable } from "tsyringe"
+
+@injectable()
+export class UserListController implements IController<AdapterExpress> {
+	constructor(
+		@inject("UserListCase")
+		private userListcase: IUseCase<DtoListUser, UserEntity[]>,
+		@inject("DtoValidator")
+		private dtoValidator: IUserValideDto<DtoListUser, IRequest<any>>,
+	) {}
+
+	async handler(httpContext: AdapterExpress): Promise<void> {
+		try {
+			const request = await httpContext.getRequest()
+
+			const listAllInstance = await this.dtoValidator.valideDto<DtoListUser>(
+				DtoListUser,
+				request,
+			)
+			const listResult = await this.userListcase.handler(listAllInstance)
+
+			await httpContext.sendInfo<typeof listResult>(
+				StatusCodes.OK,
+				"Listagem feita com sucesso!",
+				listResult,
+			)
+		} catch (err) {
+			console.log(err)
+
+			await httpContext.sendInfo<typeof err>(
+				StatusCodes.INTERNAL_SERVER_ERROR,
+				"Erro ao tentar fazer a listagem dos usuarios",
+				err,
+			)
+		}
+	}
+}
