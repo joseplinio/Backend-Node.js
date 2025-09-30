@@ -11,6 +11,9 @@ export class AdapterExpress implements IHttpContext {
 		private request: Request,
 		private response: Response,
 	) {}
+	async cleanTheCookies(id: string): Promise<void> {
+		throw new Error("Method not implemented.")
+	}
 
 	async getRequest(): Promise<IRequest<any>> {
 		const { body, params, query, headers, cookies } = this.request
@@ -37,6 +40,4 @@ export class AdapterExpress implements IHttpContext {
 	): Promise<unknown> {
 		return this.response.cookie(name, token)
 	}
-
-
 }
