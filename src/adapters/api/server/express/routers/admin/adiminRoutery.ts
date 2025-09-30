@@ -1,7 +1,7 @@
 import { type Request, type Response, Router } from "express"
-import { UserDeleteController } from "src/adapters/api/http/users/controllers/routers/delete"
-import { UserFindController } from "src/adapters/api/http/users/controllers/routers/find"
-import { UserListController } from "src/adapters/api/http/users/controllers/routers/list"
+import { UserDeleteController } from "src/adapters/api/http/admin/controllers/delete"
+import { UserFindController } from "src/adapters/api/http/admin/controllers/find"
+import { UserListController } from "src/adapters/api/http/admin/controllers/list"
 import { container } from "tsyringe"
 import { AdapterExpress } from "../../expressAdapter"
 
@@ -17,7 +17,8 @@ adminRouter.get("/find", async (req: Request, res: Response) => {
 	container.resolve(UserFindController).handler(adapterEx)
 })
 
-adminRouter.delete("/:id", async (req: Request, res: Response) => {
+adminRouter.delete("/delete:id", async (req: Request, res: Response) => {
 	const adapterEx = new AdapterExpress(req, res)
+	console.log(req.params)
 	container.resolve(UserDeleteController).handler(adapterEx)
 })
