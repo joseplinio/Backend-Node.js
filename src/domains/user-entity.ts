@@ -4,4 +4,5 @@ export interface UserEntity {
 	age: number
 	email: string
 	hashpasswd: string
+	admin: boolean
 }
