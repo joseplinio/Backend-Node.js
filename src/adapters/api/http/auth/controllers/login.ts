@@ -1,18 +1,18 @@
 import { StatusCodes } from "http-status-codes"
+import type { JwtPayload } from "jsonwebtoken"
 import type { AdapterExpress } from "src/adapters/api/server/express/expressAdapter"
-import type { IDtoLoginUser } from "src/aplication/interface/dto/ILoginUserDto"
-import type { IUserValideDto } from "src/aplication/interface/dto/IUserValideDto"
-import type { IUseCase } from "src/aplication/use_case/case"
+import type { IUseCase } from "src/aplication/interface/cases/IUseCase"
+import { IDtoLoginUser } from "src/aplication/interface/dto/auth/ILoginUserDto"
+import { IUserValideDto } from "src/aplication/interface/dto/user/IUserValideDto"
 import { DtoLoginUser } from "src/aplication/use_case/users/dto/dtoLoginUser"
-import type { UserEntity } from "src/domains/user-entity"
 import { inject, injectable } from "tsyringe"
-import type { IController } from "../../../../../../aplication/interface/controllers/IController"
+import type { IController } from "../../../../../aplication/interface/controllers/IController"
 
 @injectable()
 export class UserLoginController implements IController<AdapterExpress> {
 	constructor(
 		@inject("UserLoginCase")
-		private userLoginCase: IUseCase<IDtoLoginUser, UserEntity | null>,
+		private userLoginCase: IUseCase<IDtoLoginUser, string | JwtPayload>,
 		@inject("DtoValidator")
 		private dtoValidator: IUserValideDto<DtoLoginUser, any>,
 	) {}
@@ -25,17 +25,17 @@ export class UserLoginController implements IController<AdapterExpress> {
 				body,
 			)
 
-			const resultLogin = await this.userLoginCase.handler(bodyInstance)
+			const loginResult = await this.userLoginCase.handler(bodyInstance)
 
-			httpContext.send<typeof resultLogin>(
+			await httpContext.sendTokenByCookies("loginResult", loginResult)
+			await httpContext.sendInfo<null>(
 				StatusCodes.OK,
-				"Usuario Encontrado",
-				resultLogin,
+				"login it'was doing with sucess!",
+				null,
 			)
-	
 		} catch (err) {
 			console.log(err)
-			httpContext.send<typeof err>(
+			await httpContext.sendInfo<typeof err>(
 				StatusCodes.INTERNAL_SERVER_ERROR,
 				"Erro ao tentar encontrar o user!",
 				err,
