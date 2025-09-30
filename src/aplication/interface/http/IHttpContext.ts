@@ -3,7 +3,7 @@ import type { IRequest } from "./IRequest"
 
 // re acolocar depois
 export type HttpResponse<T = any> = {
-	statusCode: StatusCodes,
+	statusCode: StatusCodes
 	message: string
 	data: T
 }
@@ -11,10 +11,14 @@ export type HttpResponse<T = any> = {
 export interface IHttpContext {
 	// Serve para mostra que cada estatus tem (key: valeu) = httpStatus !!
 	getRequest(): Promise<IRequest<any>>
-	
-	send<T>(
+
+	sendInfo<T>(
 		statusCode: (typeof StatusCodes)[keyof typeof StatusCodes],
 		message: string,
-		data: T
+		data: T,
 	): Promise<unknown>
+
+	sendTokenByCookies(name: string, cookies: string): Promise<unknown>
+
+	cleanTheCookies(id: string): Promise<void>
 }
