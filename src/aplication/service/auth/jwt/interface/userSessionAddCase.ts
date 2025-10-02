@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto"
 import type { IUseCase } from "src/aplication/interface/cases/IUseCase"
 import type { IUserSessionRepository } from "src/aplication/interface/repositories/IUserSessionRespository"
-import { UserSessionMapper } from "src/aplication/mappper/userSessionMapper"
+import { UserSessionMapper } from "src/aplication/mapper/userSession/userSessionMapper"
 import type { UserSessionEntity } from "src/domains/userSession-entity"
 import { inject, injectable } from "tsyringe"
 

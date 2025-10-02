@@ -43,12 +43,11 @@ export class RefreshTokenCase
 				"refresh",
 			)
 			if (isRevoked)
-				throw new Error("Erro in the RefreshTokenCase [Tokne revoked]")
+				throw new Error("Erro in the RefreshTokenCase [Token revoked]")
 
 			const newUserSession = await this.jwtSession.makeSession(payload)
 
-			await this.userSessionRepository.deleteByID(payload.id)
-
+			await this.userSessionRepository.invalidByID(payload.id)
 
 			await this.userSessionAddCase.handler(payload)
 
