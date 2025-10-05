@@ -19,6 +19,5 @@ adminRouter.get("/find", async (req: Request, res: Response) => {
 
 adminRouter.delete("/delete:id", async (req: Request, res: Response) => {
 	const adapterEx = new AdapterExpress(req, res)
-	console.log(req.params)
 	container.resolve(UserDeleteController).handler(adapterEx)
 })

@@ -1,8 +1,8 @@
 import { StatusCodes } from "http-status-codes"
 import type { AdapterExpress } from "src/adapters/api/server/express/expressAdapter"
-import type { IController } from "src/aplication/interface/controllers/IController"
-import type { IUserValideDto } from "src/aplication/interface/dto/user/IUserValideDto"
-import type { IUseCase } from "src/aplication/interface/cases/IUseCase"
+import type { IUseCase } from "src/aplication/interface/case/IUseCase"
+import type { IController } from "src/aplication/interface/controller/IController"
+import type { IValideDto } from "src/aplication/interface/dto/IValideDto"
 import { DtoDeleteUser } from "src/aplication/use_case/users/dto/dtoDeleteUser"
 import { inject, injectable } from "tsyringe"
 
@@ -12,7 +12,7 @@ export class UserDeleteController implements IController<AdapterExpress> {
 		@inject("UserDeleteCase")
 		private userDeleteCase: IUseCase<string, void>,
 		@inject("DtoValidator")
-		private dtoValidator: IUserValideDto<DtoDeleteUser, any>,
+		private dtoValidator: IValideDto<DtoDeleteUser, any>,
 	) {}
 
 	async handler(httpContext: AdapterExpress): Promise<void> {

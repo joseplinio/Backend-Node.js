@@ -1,5 +1,5 @@
 import { argon2d, hash, verify } from "argon2"
-import type { IHashService } from "../IHashService"
+import type { IHashService } from "./IHashService"
 
 export class HashService implements IHashService {
 	async hash(passwd: string): Promise<string> {

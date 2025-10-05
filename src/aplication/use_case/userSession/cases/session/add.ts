@@ -1,5 +1,5 @@
 import { randomUUID } from "crypto"
-import type { IUseCase } from "src/aplication/interface/cases/IUseCase"
+import type { IUseCase } from "src/aplication/interface/case/IUseCase"
 import type { IUserSessionRepository } from "src/aplication/interface/repositories/IUserSessionRespository"
 import { UserSessionMapper } from "src/aplication/mapper/userSession/userSessionMapper"
 import type { UserSessionEntity } from "src/domains/userSession-entity"

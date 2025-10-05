@@ -1,12 +1,12 @@
 import { StatusCodes } from "http-status-codes"
 import type { JwtPayload } from "jsonwebtoken"
 import type { AdapterExpress } from "src/adapters/api/server/express/expressAdapter"
-import type { IUseCase } from "src/aplication/interface/cases/IUseCase"
+import type { IUseCase } from "src/aplication/interface/case/IUseCase"
+import { IValideDto } from "src/aplication/interface/dto/IValideDto"
 import { IDtoLoginUser } from "src/aplication/interface/dto/auth/ILoginUserDto"
-import { IUserValideDto } from "src/aplication/interface/dto/user/IUserValideDto"
 import { DtoLoginUser } from "src/aplication/use_case/users/dto/dtoLoginUser"
 import { inject, injectable } from "tsyringe"
-import type { IController } from "../../../../../aplication/interface/controllers/IController"
+import type { IController } from "../../../../../aplication/interface/controller/IController"
 
 @injectable()
 export class UserLoginController implements IController<AdapterExpress> {
@@ -14,7 +14,7 @@ export class UserLoginController implements IController<AdapterExpress> {
 		@inject("UserLoginCase")
 		private userLoginCase: IUseCase<IDtoLoginUser, string | JwtPayload>,
 		@inject("DtoValidator")
-		private dtoValidator: IUserValideDto<DtoLoginUser, any>,
+		private dtoValidator: IValideDto<DtoLoginUser, any>,
 	) {}
 
 	async handler(httpContext: AdapterExpress): Promise<void> {

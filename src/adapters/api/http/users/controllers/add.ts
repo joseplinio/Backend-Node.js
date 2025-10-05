@@ -1,10 +1,10 @@
 import { StatusCodes } from "http-status-codes"
 import type { AdapterExpress } from "src/adapters/api/server/express/expressAdapter"
-import type { IUserValideDto } from "src/aplication/interface/dto/user/IUserValideDto"
+import type { IValideDto } from "src/aplication/interface/dto/IValideDto"
 import { CreaterUserDtoRequest } from "src/aplication/use_case/users/dto/dtoRequestUser"
 import { inject, injectable } from "tsyringe"
-import type { IUseCase } from "../../../../../aplication/interface/cases/IUseCase"
-import type { IController } from "../../../../../aplication/interface/controllers/IController"
+import type { IUseCase } from "../../../../../aplication/interface/case/IUseCase"
+import type { IController } from "../../../../../aplication/interface/controller/IController"
 
 @injectable()
 export class UserAddController implements IController<AdapterExpress> {
@@ -12,7 +12,7 @@ export class UserAddController implements IController<AdapterExpress> {
 		@inject("UserAddCase")
 		private userAddCase: IUseCase<CreaterUserDtoRequest, object>,
 		@inject("DtoValidator")
-		private dtoValidtor: IUserValideDto<CreaterUserDtoRequest, any>,
+		private dtoValidtor: IValideDto<CreaterUserDtoRequest, any>,
 	) {}
 
 	async handler(httpContext: AdapterExpress): Promise<void> {

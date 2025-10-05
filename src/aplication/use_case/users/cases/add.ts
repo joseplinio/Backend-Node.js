@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto"
-import type { IUseCase } from "src/aplication/interface/cases/IUseCase"
-import type { CreateUserModel } from "src/aplication/interface/dto/TyCreaterUser"
+import type { IUseCase } from "src/aplication/interface/case/IUseCase"
+import type { CreateUserModel } from "src/aplication/interface/dto/user/TyCreaterUser"
 import type { IHashService } from "src/aplication/interface/service/hash/IHashService"
 import { inject, injectable } from "tsyringe"
 import { IUserRepository } from "../../../interface/repositories/IUserRepository"

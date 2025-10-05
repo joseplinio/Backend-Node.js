@@ -1,8 +1,8 @@
-import { IJwtPayload } from "src/aplication/service/auth/jwt/interface/IJwtPayload"
+import { IJwtPayload } from "src/aplication/interface/dto/services/jwt/IJwtPayload"
 import type { UserEntity } from "src/domains/user-entity"
 import { inject, injectable } from "tsyringe"
-import type { ITokensService } from "./interface/IAccessTokenService"
-import type { IJwtSession } from "./interface/managers/IJwtManeger"
+import type { ITokensService } from "../../../interface/dto/auth/IAccessTokenService"
+import type { IJwtSession } from "../../../interface/dto/services/jwt/IJwtManeger"
 
 @injectable()
 export class JwtSession implements IJwtSession<UserEntity, object> {
@@ -39,4 +39,3 @@ export class JwtSession implements IJwtSession<UserEntity, object> {
 		return { accessToken: accessToken, refreshToken: refreshToken }
 	}
 }
-

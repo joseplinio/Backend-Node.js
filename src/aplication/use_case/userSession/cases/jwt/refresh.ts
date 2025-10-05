@@ -1,10 +1,10 @@
-import type { IUseCase } from "src/aplication/interface/cases/IUseCase"
+import type { IUseCase } from "src/aplication/interface/case/IUseCase"
+import type { IJwtSession } from "src/aplication/interface/dto/services/jwt/IJwtManeger"
+import type { IJwtPayload } from "src/aplication/interface/dto/services/jwt/IJwtPayload"
 import type { IUserSessionRepository } from "src/aplication/interface/repositories/IUserSessionRespository"
 import type { IJwtService } from "src/aplication/interface/service/jwt/IJwtService"
-import type { IJwtPayload } from "src/aplication/service/auth/jwt/interface/IJwtPayload"
-import type { IJwtSession } from "src/aplication/service/auth/jwt/interface/managers/IJwtManeger"
 import { inject, injectable } from "tsyringe"
-import type { DtoRefreshToken } from "./dto/dtoRefreshToken"
+import type { DtoRefreshToken } from "../../../../interface/dto/services/jwt/dto/dtoRefreshToken"
 
 @injectable()
 export class RefreshTokenCase

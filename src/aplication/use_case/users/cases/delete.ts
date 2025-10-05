@@ -1,4 +1,4 @@
-import type { IUseCase } from "src/aplication/interface/cases/IUseCase"
+import type { IUseCase } from "src/aplication/interface/case/IUseCase"
 import { IUserRepository } from "src/aplication/interface/repositories/IUserRepository"
 import { inject, injectable } from "tsyringe"
 

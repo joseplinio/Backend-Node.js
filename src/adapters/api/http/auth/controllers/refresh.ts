@@ -1,9 +1,9 @@
 import { StatusCodes } from "http-status-codes"
 import type { AdapterExpress } from "src/adapters/api/server/express/expressAdapter"
-import type { IUseCase } from "src/aplication/interface/cases/IUseCase"
-import type { IController } from "src/aplication/interface/controllers/IController"
-import type { IUserValideDto } from "src/aplication/interface/dto/user/IUserValideDto"
-import { DtoRefreshToken } from "src/aplication/use_case/userSession/cases/jwt/dto/dtoRefreshToken"
+import type { IUseCase } from "src/aplication/interface/case/IUseCase"
+import type { IController } from "src/aplication/interface/controller/IController"
+import type { IValideDto } from "src/aplication/interface/dto/IValideDto"
+import { DtoRefreshToken } from "src/aplication/interface/dto/services/jwt/dto/dtoRefreshToken"
 import { inject, injectable } from "tsyringe"
 
 @injectable()
@@ -12,7 +12,7 @@ export class RefreshTokenController implements IController<AdapterExpress> {
 		@inject("RefreshTokenCase")
 		private refreshTokenCase: IUseCase<DtoRefreshToken, object>,
 		@inject("DtoValidator")
-		private dtoValidtor: IUserValideDto<DtoRefreshToken, any>,
+		private dtoValidtor: IValideDto<DtoRefreshToken, any>,
 	) {}
 	async handler(httpContext: AdapterExpress): Promise<void> {
 		try {

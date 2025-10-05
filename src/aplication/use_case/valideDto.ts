@@ -1,8 +1,8 @@
 import { plainToInstance } from "class-transformer"
 import { validate } from "class-validator"
-import type { IUserValideDto } from "../../../interface/dto/user/IUserValideDto"
+import type { IValideDto } from "../interface/dto/IValideDto"
 
-export class DtoValidator implements IUserValideDto<any, unknown> {
+export class DtoValidator implements IValideDto<any, unknown> {
 	async valideDto<T>(dtoClass: new () => T, data: any): Promise<T> {
 		try {
 			// he need the real class no a instace !

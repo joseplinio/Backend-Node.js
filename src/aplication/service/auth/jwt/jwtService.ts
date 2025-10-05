@@ -1,7 +1,7 @@
 import jwt, { type JwtPayload } from "jsonwebtoken"
 import type { IJwtService } from "src/aplication/interface/service/jwt/IJwtService"
 import { injectable } from "tsyringe"
-import type { IJwtPayload } from "./interface/IJwtPayload"
+import type { IJwtPayload } from "../../../interface/dto/services/jwt/IJwtPayload"
 
 @injectable()
 export class JwtService implements IJwtService {

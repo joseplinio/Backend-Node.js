@@ -1,7 +1,7 @@
 import { Type } from "class-transformer"
 import { IsNotEmpty, IsObject } from "class-validator"
-import type { IRefreshTokenDto } from "src/aplication/service/auth/jwt/interface/dto/IRefreshTokenDto"
-import { AuthTokensDto } from "src/aplication/service/auth/jwt/interface/dto/IAuthTokensDto"
+import { AuthTokensDto } from "src/aplication/interface/dto/services/jwt/dto/IAuthTokensDto"
+import type { IRefreshTokenDto } from "src/aplication/interface/dto/auth/IRefreshTokenDto"
 
 export class DtoRefreshToken implements IRefreshTokenDto {
 	@IsNotEmpty()

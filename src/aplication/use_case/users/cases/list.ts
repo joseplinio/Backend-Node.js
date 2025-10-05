@@ -1,6 +1,6 @@
 import type { IUserRepository } from "src/aplication/interface/repositories/IUserRepository"
 import { inject, injectable } from "tsyringe"
-import type { IUseCase } from "../../../interface/cases/IUseCase"
+import type { IUseCase } from "../../../interface/case/IUseCase"
 
 @injectable()
 export class UserListCase implements IUseCase<any, object[] | null> {

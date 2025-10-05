@@ -1,5 +1,5 @@
 import type { JwtPayload } from "jsonwebtoken"
-import type { IJwtPayload } from "./IJwtPayload"
+import type { IJwtPayload } from "../services/jwt/IJwtPayload"
 
 export interface ITokensService {
 	makeToken(

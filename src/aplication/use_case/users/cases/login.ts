@@ -1,10 +1,10 @@
 import type { IDtoLoginUser } from "src/aplication/interface/dto/auth/ILoginUserDto"
+import type { IJwtSession } from "src/aplication/interface/dto/services/jwt/IJwtManeger"
 import type { IUserRepository } from "src/aplication/interface/repositories/IUserRepository"
 import type { IHashManeger } from "src/aplication/interface/service/hash/menager/IHashMenager"
-import type { IJwtSession } from "src/aplication/service/auth/jwt/interface/managers/IJwtManeger"
 import type { UserEntity } from "src/domains/user-entity"
 import { inject, injectable } from "tsyringe"
-import type { IUseCase } from "../../../interface/cases/IUseCase"
+import type { IUseCase } from "../../../interface/case/IUseCase"
 
 @injectable()
 export class UserLoginCase implements IUseCase<IDtoLoginUser, object> {

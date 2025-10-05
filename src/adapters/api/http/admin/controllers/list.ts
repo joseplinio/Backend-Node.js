@@ -1,8 +1,8 @@
 import { StatusCodes } from "http-status-codes"
 import type { AdapterExpress } from "src/adapters/api/server/express/expressAdapter"
-import type { IUseCase } from "src/aplication/interface/cases/IUseCase"
-import type { IController } from "src/aplication/interface/controllers/IController"
-import type { IUserValideDto } from "src/aplication/interface/dto/user/IUserValideDto"
+import type { IUseCase } from "src/aplication/interface/case/IUseCase"
+import type { IController } from "src/aplication/interface/controller/IController"
+import type { IValideDto } from "src/aplication/interface/dto/IValideDto"
 import type { IRequest } from "src/aplication/interface/http/IRequest"
 import { DtoListUser } from "src/aplication/use_case/users/dto/dtoListUser"
 import { inject, injectable } from "tsyringe"
@@ -13,7 +13,7 @@ export class UserListController implements IController<AdapterExpress> {
 		@inject("UserListCase")
 		private userListcase: IUseCase<DtoListUser, object[]>,
 		@inject("DtoValidator")
-		private dtoValidator: IUserValideDto<DtoListUser, IRequest<any>>,
+		private dtoValidator: IValideDto<DtoListUser, IRequest<any>>,
 	) {}
 
 	async handler(httpContext: AdapterExpress): Promise<void> {

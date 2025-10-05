@@ -1,8 +1,8 @@
 import { StatusCodes } from "http-status-codes"
 import type { AdapterExpress } from "src/adapters/api/server/express/expressAdapter"
-import type { IUseCase } from "src/aplication/interface/cases/IUseCase"
-import type { IController } from "src/aplication/interface/controllers/IController"
-import type { IUserValideDto } from "src/aplication/interface/dto/user/IUserValideDto"
+import type { IUseCase } from "src/aplication/interface/case/IUseCase"
+import type { IController } from "src/aplication/interface/controller/IController"
+import type { IValideDto } from "src/aplication/interface/dto/IValideDto"
 import { DtoFindUser } from "src/aplication/use_case/users/dto/dtoFindUser"
 import { inject, injectable } from "tsyringe"
 
@@ -12,7 +12,7 @@ export class UserFindController implements IController<AdapterExpress> {
 		@inject("UserFindCase")
 		private userFindCase: IUseCase<DtoFindUser, object[] | null>,
 		@inject("DtoValidator")
-		private dtoValidator: IUserValideDto<DtoFindUser, any>,
+		private dtoValidator: IValideDto<DtoFindUser, any>,
 	) {}
 
 	async handler(httpContext: AdapterExpress): Promise<void> {
