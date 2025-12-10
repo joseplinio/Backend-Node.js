@@ -7,5 +7,6 @@ export interface IUserSessionRepository {
 		sessionID: string,
 		optionsOfTokens: "refresh" | "access",
 	): Promise<boolean | null>
+	revokeToken(userID: string): Promise<void>
 	invalidByID(sessionID: string): Promise<void>
 }
