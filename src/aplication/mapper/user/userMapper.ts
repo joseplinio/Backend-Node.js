@@ -8,7 +8,7 @@ export type DrizzleUserInsert = InferInsertModel<typeof usersTable> // Tipo para
 export class UserMapper {
 	static toEntity(user: UserEntity): DrizzleUserInsert {
 		return {
-			id: user.id,
+			userID: user.userID,
 			name: user.name,
 			age: user.age,
 			hashpasswd: user.hashpasswd,
@@ -19,7 +19,7 @@ export class UserMapper {
 
 	static toDomain(drizzleUser: DrizzleUserSelect): UserEntity {
 		return {
-			id: drizzleUser.id,
+			userID: drizzleUser.userID,
 			name: drizzleUser.name,
 			age: drizzleUser.age,
 			hashpasswd: drizzleUser.hashpasswd,
