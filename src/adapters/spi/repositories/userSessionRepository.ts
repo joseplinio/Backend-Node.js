@@ -1,5 +1,5 @@
 import { eq } from "drizzle-orm"
-import type { IUserSessionRepository } from "src/aplication/interface/repositories/IUserSessionRespository"
+import type { IUserSessionRepository } from "src/aplication/interface/repositories/IUserSessionRepository"
 import { UserSessionMapper } from "src/aplication/mapper/userSession/userSessionMapper"
 import type { UserSessionEntity } from "src/domains/userSession-entity"
 import { db } from "../drizzle/db/db"
@@ -20,7 +20,7 @@ export class UserSessionRepository implements IUserSessionRepository {
 			})
 
 			if (!idResult)
-				throw new Error("Erro in the findByID [it donsn't the idResult]")
+				throw new Error("Erro in the findByID [donsn't has the idResult]")
 
 			return UserSessionMapper.toDomain(idResult)
 		} catch (err) {
@@ -28,20 +28,25 @@ export class UserSessionRepository implements IUserSessionRepository {
 			return null
 		}
 	}
+	// I need to refatorer this code.
 	async isRevokedToken(
 		sessionID: string,
 		optionsOfTokens: "refresh" | "access",
 	): Promise<boolean | null> {
 		try {
-			const filterForRevokedToken =
+			const filterIsRevokedToken =
 				optionsOfTokens === "access"
 					? eq(sessionUser.accessID, sessionID)
 					: eq(sessionUser.refreshID, sessionID)
 
 			const revokedTokenResult = await db.query.sessionUser.findFirst({
-				where: filterForRevokedToken,
+				where: filterIsRevokedToken,
 			})
-			if (revokedTokenResult == undefined) return true
+			if (
+				revokedTokenResult === undefined ||
+				revokedTokenResult.revoked == true
+			)
+				return true
 
 			return false
 		} catch (err) {
@@ -55,5 +60,9 @@ export class UserSessionRepository implements IUserSessionRepository {
 		} catch (err) {
 			console.log(err)
 		}
+	}
+	async revokeToken(userID: string): Promise<void> {
+		const filterRevokeToken = eq(sessionUser.userID, userID)
+		await db.update(sessionUser).set({ revoked: true }).where(filterRevokeToken)
 	}
 }
