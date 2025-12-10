@@ -3,5 +3,5 @@ export interface IRequest<T> {
 	params?: Record<string, string>
 	query?: Record<string, T>
 	cookies?: object
-	headers?: Record<string, string[] | undefined | null>
+	headers?: Record<string, string | string[] | undefined | null>
 }
