@@ -1,16 +1,40 @@
-// import type { IUserRepository } from "src/aplication/interface/repositories/IUserRepository"
-// import { inject } from "tsyringe"
-// import type { IUseCase } from "../../../interface/cases/IUseCase"
+import { DtoRefreshToken } from "src/aplication/interface/dto/services/jwt/dto/dtoRefreshToken"
+import type { IJwtService } from "src/aplication/interface/service/jwt/IJwtService"
+import type { UserSessionEntity } from "src/domains/userSession-entity"
+import { inject, injectable } from "tsyringe"
+import type { IUseCase } from "../../../interface/case/IUseCase"
+import type { UserSessionFindCase } from "../../userSession/cases/session/find"
 
+@injectable()
+export class UserLogoutCase implements IUseCase<DtoRefreshToken, void> {
+	constructor(
+		@inject("UserSessionFindCase")
+		private userSessionFindCase: UserSessionFindCase,
+		@inject("UserSessionDeleteCase")
+		private userSessionDeleteCase: IUseCase<UserSessionEntity, void>,
+		@inject("JwtService") private jwtService: IJwtService,
+	) {}
+	async handler(dto: DtoRefreshToken): Promise<void> {
+		try {
+			if (!process.env.REFRESH_TOKEN_SECRET)
+				throw new Error("Erro in the JwtTokens [it dosen't the secret keys]")
 
+			const payload = await this.jwtService.authToken(
+				dto.loginResult.refreshToken,
+				process.env.REFRESH_TOKEN_SECRET,
+			)
 
+			const userSession = await this.userSessionFindCase.handler(payload)
 
-// export class UserLogoutCase implements IUseCase<void, void> {
-// 	constructor(
-// 		@inject("TokenRepository") private tokenRepository: IUserSessionRespository,
-// 		@inject("UserRepository") private userRespository: IUserRepository,
-// 	) {}
-// 	async handler(body: void): Promise<void> {
-// 		throw new Error("Method not implemented.")
-// 	}
-// }
+			if (!userSession)
+				throw new Error("The Server doesn't has the userSession for the Logout")
+
+			const deleteResult = await this.userSessionDeleteCase.handler(userSession)
+
+			return deleteResult
+		} catch (err) {
+			console.log(err)
+			throw new Error("Internal error in the UserLogoutCase: ")
+		}
+	}
+}

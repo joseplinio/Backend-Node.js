@@ -10,8 +10,13 @@ export class UserFindCase implements IUseCase<DtoFindUser, object[] | null> {
 	) {}
 
 	async handler(body: DtoFindUser): Promise<object[] | null> {
-		const queryResult = this.userRepository.findAny(body)
+		try {
+			const queryResult = this.userRepository.findAny(body)
 
-		return queryResult
+			return queryResult
+		} catch (err) {
+			console.log(err)
+			throw new Error("Internal error in the UserFindCase: ")
+		}
 	}
 }
