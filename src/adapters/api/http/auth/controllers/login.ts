@@ -28,7 +28,9 @@ export class UserLoginController implements IController<AdapterExpress> {
 			const loginResult = await this.userLoginCase.handler(bodyInstance)
 
 			await httpContext.sendTokenByCookies("loginResult", loginResult)
-			await httpContext.sendInfo<null>(
+			console.log(loginResult)
+
+      await httpContext.sendInfo<null>(
 				StatusCodes.OK,
 				"login it'was doing with sucess!",
 				null,
