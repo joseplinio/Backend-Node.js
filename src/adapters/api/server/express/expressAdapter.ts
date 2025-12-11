@@ -7,37 +7,48 @@ import { injectable } from "tsyringe"
 
 @injectable()
 export class AdapterExpress implements IHttpContext {
-	constructor(
-		private request: Request,
-		private response: Response,
-	) {}
-	async cleanTheCookies(id: string): Promise<void> {
-		throw new Error("Method not implemented.")
-	}
+  constructor(
+    private request: Request,
+    private response: Response,
+  ) { }
 
-	async getRequest(): Promise<IRequest<any>> {
-		const { body, params, query, headers, cookies } = this.request
+  async getRequest(): Promise<IRequest<any>> {
+    const { body, params, query, headers, cookies } = this.request
 
-		return {
-			body: body,
-			params: params,
-			query: query,
-			cookies: cookies,
-			headers: headers as any,
-		}
-	}
+    return {
+      body: body,
+      params: params,
+      query: query,
+      cookies: cookies,
+      headers: headers,
+    }
+  }
 
-	async sendInfo<T>(
-		statusCode: (typeof StatusCodes)[keyof typeof StatusCodes],
-		message: string,
-		data: T,
-	): Promise<unknown> {
-		return this.response.status(statusCode).send({ statusCode, message, data })
-	}
-	async sendTokenByCookies(
-		name: string,
-		token: JwtPayload | string,
-	): Promise<unknown> {
-		return this.response.cookie(name, token)
-	}
+  async sendInfo<T>(
+    statusCode: (typeof StatusCodes)[keyof typeof StatusCodes],
+    message: string,
+    data: T,
+  ): Promise<unknown> {
+    return this.response.status(statusCode).send({ statusCode, message, data })
+  }
+
+  async sendTokenByCookies(
+    name: string,
+    token: JwtPayload | string,
+  ): Promise<void> {
+    this.response.cookie(name, token, {
+      httpOnly: true,
+      sameSite: "strict",
+      path: "/",
+      maxAge: 1000 * 60 * 15,
+    })
+  }
+
+  async clearCookies(name: string): Promise<void> {
+    this.response.clearCookie(name, {
+      httpOnly: true,
+      sameSite: "strict",
+      path: "/",
+    })
+  }
 }

@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto"
 import type { IUseCase } from "src/aplication/interface/case/IUseCase"
-import type { IUserSessionRepository } from "src/aplication/interface/repositories/IUserSessionRespository"
+import type { IUserSessionRepository } from "src/aplication/interface/repositories/IUserSessionRepository"
 import { UserSessionMapper } from "src/aplication/mapper/userSession/userSessionMapper"
 import type { UserSessionEntity } from "src/domains/userSession-entity"
 import { inject, injectable } from "tsyringe"
@@ -11,9 +11,9 @@ export class UserSessionAddCase implements IUseCase<UserSessionEntity, void> {
 		@inject("UserSessionRepository")
 		private userSessionRepository: IUserSessionRepository,
 	) {}
-	async handler(user: any): Promise<void> {
+	async handler(user: UserSessionEntity): Promise<void> {
 		const userSession = UserSessionMapper.toEntity({
-			userID: user.id,
+			userID: user.userID,
 			accessID: randomUUID(),
 			refreshID: randomUUID(),
 			createAt: new Date().toString(),

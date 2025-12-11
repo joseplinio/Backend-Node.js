@@ -3,7 +3,7 @@ import type { UserEntity } from "src/domains/user-entity"
 export class CleanUserMapper {
 	static cleanUser(user: UserEntity): object {
 		const cleanUser = {
-			id: user.id,
+			userID: user.userID,
 			name: user.name,
 			age: user.age,
 			email: user.email,

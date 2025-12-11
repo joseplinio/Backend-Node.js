@@ -1,7 +1,7 @@
 import Jwt, { type JwtPayload } from "jsonwebtoken"
+import type { ITokensService } from "src/aplication/interface/dto/auth/IAccessTokenService"
+import type { IJwtPayload } from "src/aplication/interface/dto/services/jwt/IJwtPayload"
 import { injectable } from "tsyringe"
-import type { ITokensService } from "../../interface/dto/auth/IAccessTokenService"
-import type { IJwtPayload } from "../../interface/dto/services/jwt/IJwtPayload"
 
 @injectable()
 export class RefershTokenService implements ITokensService {
@@ -9,7 +9,7 @@ export class RefershTokenService implements ITokensService {
 		payloadInstance: IJwtPayload,
 		token: string,
 	): Promise<string | JwtPayload | null> {
-		const accessToken = Jwt.sign(payloadInstance, token, { expiresIn: "10m" })
+		const accessToken = Jwt.sign(payloadInstance, token)
 
 		return accessToken
 	}

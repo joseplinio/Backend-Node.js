@@ -9,6 +9,11 @@ export class UserDeleteCase implements IUseCase<string, void> {
 	) {}
 
 	async handler(body: string): Promise<void> {
-		return this.userRepository.delete(body)
+		try {
+			return this.userRepository.delete(body)
+		} catch (err) {
+			console.log(err)
+			throw new Error("Internal error in the UserDeleteCase: ")
+		}
 	}
 }

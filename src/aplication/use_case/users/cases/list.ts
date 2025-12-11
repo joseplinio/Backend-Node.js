@@ -9,7 +9,12 @@ export class UserListCase implements IUseCase<any, object[] | null> {
 	) {}
 
 	async handler(_body: any): Promise<object[] | null> {
-		const listResult = this.userRepository.listAll()
-		return listResult
+		try {
+			const listResult = this.userRepository.listAll()
+			return listResult
+		} catch (err) {
+			console.log(err)
+			throw new Error("Internal error in the UserListCase")
+		}
 	}
 }

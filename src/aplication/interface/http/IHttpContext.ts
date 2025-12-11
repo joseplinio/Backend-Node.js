@@ -20,5 +20,5 @@ export interface IHttpContext {
 
 	sendTokenByCookies(name: string, cookies: string): Promise<unknown>
 
-	cleanTheCookies(id: string): Promise<void>
+	clearCookies(name: string): Promise<void>
 }

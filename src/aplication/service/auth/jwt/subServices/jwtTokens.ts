@@ -1,11 +1,11 @@
+import type { ITokensService } from "src/aplication/interface/dto/auth/IAccessTokenService"
 import { IJwtPayload } from "src/aplication/interface/dto/services/jwt/IJwtPayload"
+import type { IJwtTokens } from "src/aplication/interface/dto/services/jwt/IJwtSession"
 import type { UserEntity } from "src/domains/user-entity"
 import { inject, injectable } from "tsyringe"
-import type { ITokensService } from "../../../interface/dto/auth/IAccessTokenService"
-import type { IJwtSession } from "../../../interface/dto/services/jwt/IJwtManeger"
 
 @injectable()
-export class JwtSession implements IJwtSession<UserEntity, object> {
+export class JwtTokens implements IJwtTokens<UserEntity, object> {
 	constructor(
 		@inject("RefershTokenService")
 		private refershTokenService: ITokensService,
@@ -13,12 +13,13 @@ export class JwtSession implements IJwtSession<UserEntity, object> {
 		private accessTokenService: ITokensService,
 	) {}
 
-	async makeSession(user: UserEntity): Promise<object> {
+	async makeTokens(user: UserEntity): Promise<object> {
 		if (!process.env.ACCESS_TOKEN_SECRET || !process.env.REFRESH_TOKEN_SECRET)
-			throw new Error("Erro in the JwtSession [it dosen't the secret keys]")
+			throw new Error("Erro in the JwtTOkens [it dosen't the secret keys]")
 
+		// probably i will change that, ;] (PROBABLY)
 		const paylod: IJwtPayload = {
-			id: user.id,
+			userID: user.userID,
 			name: user.name,
 			email: user.email,
 			age: user.age,
